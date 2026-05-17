@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Weather App</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="weather.css">
+  
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Weather App</h1>
+
+    <div class="search-box">
+      <input type="text" placeholder="Enter city name" id="cityInput">
+      <button onclick="checkWeather()">Search</button>
+    </div>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" class="weather-icon">
+
+    <h1 class="temp" id="temp">22°C</h1>
+
+    <h2 class="city" id="city">Chennai</h2>
+
+    <div class="details">
+
+      <div class="col">
+        <img src="https://cdn-icons-png.flaticon.com/512/566/566313.png">
+        <div>
+          <p class="humidity" id="humidity">65%</p>
+          <p>Humidity</p>
+        </div>
+      </div>
+
+      <div class="col">
+        <img src="https://cdn-icons-png.flaticon.com/512/553/553416.png">
+        <div>
+          <p class="wind" id="wind">10 km/h</p>
+          <p>Wind Speed</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    const apiKey = "611f991ab4ac25ec88f3473cad5f1255";
+
+    async function checkWeather(){
+
+      const city = document.getElementById("cityInput").value;
+
+      const apiURL =
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+      const response = await fetch(apiURL);
+
+      const data = await response.json();
+
+      document.getElementById("city").innerHTML = data.name;
+
+      document.getElementById("temp").innerHTML =
+      Math.round(data.main.temp) + "°C";
+
+      document.getElementById("humidity").innerHTML =
+      data.main.humidity + "%";
+
+      document.getElementById("wind").innerHTML =
+      data.wind.speed + " km/h";
+
+    }
+
+  </script>
+
+
+
+
+</body>
+</html>
